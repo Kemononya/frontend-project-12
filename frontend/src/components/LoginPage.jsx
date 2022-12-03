@@ -1,22 +1,30 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
-import * as yup from 'yup';
 import {
   Form, FloatingLabel, Button,
 } from 'react-bootstrap';
+import axios from 'axios';
+import routes from '../routes';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const [error, setError] = useState(false);
   const formik = useFormik({
     initialValues: {
       username: '',
       password: '',
     },
-    validationSchema: yup.object({
-      name: yup.string().required('Обязательно'),
-      password: yup.string().required('Обязательно'),
-    }),
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async ({ username, password }) => {
+      try {
+        const { data } = await axios.post(routes.loginPath(), { username, password });
+        localStorage.setItem('userId', data.token);
+        setError(false);
+        navigate('/');
+      } catch (err) {
+        setError(true);
+        console.error(err.message);
+      }
     },
   });
 
@@ -57,6 +65,7 @@ const LoginPage = () => {
           type="password"
           placeholder="Пароль"
         />
+        {error && <Form.Text className="text-danger">Неверные имя пользователя или пароль</Form.Text>}
       </FloatingLabel>
       <Button type="submit" className="w-100 mb-3" variant="outline-primary">Войти</Button>
     </Form>
