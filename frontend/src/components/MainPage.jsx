@@ -3,21 +3,27 @@ import {
   Container, Row, Col, Form, InputGroup, Button,
 } from 'react-bootstrap';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
+
+import { fetchChannels } from '../slices/channelsSlice.js';
 
 const MainPage = () => {
   const formik = useFormik({
     initialValues: {
       message: '',
     },
-    onSubmit: ({ message }) => {
+    onSubmit: async ({ message }) => {
       console.log(message);
     },
   });
 
+  const dispatch = useDispatch();
+
   const inputRef = useRef();
   useEffect(() => {
+    dispatch(fetchChannels());
     inputRef.current.focus();
-  }, []);
+  }, [dispatch]);
 
   return (
     <Container className="h-100 my-4 overflow-hidden rounded">
@@ -38,7 +44,7 @@ const MainPage = () => {
                   <Form.Control
                     ref={inputRef}
                     className="border-0 p-0 ps-2"
-                    name="body"
+                    name="message"
                     placeholder="Введите сообщение..."
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
