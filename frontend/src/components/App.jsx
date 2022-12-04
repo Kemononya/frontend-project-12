@@ -2,7 +2,7 @@ import {
   BrowserRouter, Routes, Route, Navigate, Outlet,
 } from 'react-router-dom';
 import LoginPage from './LoginPage';
-import NotFound from './NotFound';
+import MainPage from './MainPage';
 
 const PrivateRoute = () => {
   const isAuth = localStorage.getItem('userId');
@@ -15,7 +15,7 @@ const App = () => (
   <BrowserRouter>
     <Routes>
       <Route element={<PrivateRoute />}>
-        <Route path="/" element={<NotFound />} />
+        <Route path="/" element={<MainPage />} />
       </Route>
       <Route path="/login" element={<LoginPage />} />
     </Routes>
