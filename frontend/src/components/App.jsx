@@ -2,7 +2,7 @@ import {
   BrowserRouter, Routes, Route, Navigate, Outlet,
 } from 'react-router-dom';
 import LoginPage from './LoginPage';
-import MainPage from './MainPage';
+import MainPage from './MainPage/MainPage';
 
 const PrivateRoute = () => {
   const isAuth = localStorage.getItem('userId');

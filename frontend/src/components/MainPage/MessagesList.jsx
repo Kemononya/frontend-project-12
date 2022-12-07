@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectors } from '../slices/messagesSlice';
+import { selectors } from '../../slices/messagesSlice';
 
-const MessagesList = () => {
+const MessagesList = ({ curChannelId }) => {
+  console.log(curChannelId); // Добавить выборку сообщений по конкретному каналу
   const messages = useSelector(selectors.selectAll);
   return (
     <div className="chat-messages overflow-auto px-5">
