@@ -7,6 +7,7 @@ const messagesSlice = createSlice({
   initialState: messagesAdapter.getInitialState(),
   reducers: {
     addMessages: messagesAdapter.addMany,
+    addMessage: messagesAdapter.addOne,
   },
 });
 

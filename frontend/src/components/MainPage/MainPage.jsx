@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { actions as channelsActions } from '../../slices/channelsSlice';
 import { actions as messagesActions } from '../../slices/messagesSlice';
 import routes from '../../routes';
+import socket from '../../socket';
 import ChannelsList from './ChannelsList';
 import MessagesList from './MessagesList';
 import ChatForm from './ChatForm';
@@ -25,6 +26,9 @@ const MainPage = () => {
       setChannelId(currentChannelId);
       dispatch(channelsActions.addChannels(channels));
       dispatch(messagesActions.addMessages(messages));
+      socket.on('newMessage', (payload) => {
+        dispatch(messagesActions.addMessage(payload));
+      });
     };
     fetchInitData();
   }, [dispatch]);
