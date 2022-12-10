@@ -1,0 +1,29 @@
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { selectors } from '../../slices/messagesSlice';
+
+const Messages = ({ curChannelId }) => {
+  const messages = useSelector(selectors.selectAll)
+    .filter(({ channelId }) => channelId === curChannelId);
+  return (
+    <>
+      <div className="bg-light mb-4 p-3 shadow-sm small">
+        <p className="m-0">
+          <b># general</b>
+        </p>
+        <span className="text-muted">3 сообщения</span>
+      </div>
+      <div className="chat-messages overflow-auto px-5">
+        {messages.map(({ body, username, id }) => (
+          <div className="text-break mb-2" key={id}>
+            <b>{username}</b>
+            :
+            {body}
+          </div>
+        ))}
+      </div>
+    </>
+  );
+};
+
+export default Messages;
