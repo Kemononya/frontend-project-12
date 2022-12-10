@@ -1,10 +1,12 @@
 import React, { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import socket from '../../socket';
 
-const ChatForm = ({ curChannelId }) => {
+const ChatForm = () => {
+  const curChannelId = useSelector(({ channels }) => channels.curChannelId);
   const formik = useFormik({ // Разобраться с рамкой вокруг кнопки когда она заблокирована
     initialValues: {
       body: '',

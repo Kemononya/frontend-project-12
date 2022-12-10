@@ -1,10 +1,11 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import { selectors } from '../../slices/channelsSlice';
+// import { useSelector } from 'react-redux';
 
 const ChannelsTitle = () => {
-  const channels = useSelector(selectors.selectAll);
+  // const channels = useSelector(selectors.selectAll);
+  // console.log(channels);
+  console.log('nya');
   return (
     <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
       <span>
