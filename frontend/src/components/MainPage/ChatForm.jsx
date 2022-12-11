@@ -16,7 +16,7 @@ const ChatForm = () => {
     }),
     onSubmit: ({ body }, { resetForm }) => {
       socket.emit('newMessage', { body, channelId: curChannelId, username: 'admin' }, (response) => {
-        console.log(response.status);
+        console.log(response.state);
       });
       resetForm();
     },

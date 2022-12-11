@@ -28,6 +28,9 @@ const MainPage = () => {
       socket.on('newMessage', (payload) => {
         dispatch(messagesActions.addMessage(payload));
       });
+      socket.on('newChannel', (payload) => {
+        dispatch(channelsActions.addChannel(payload));
+      });
     };
     fetchInitData();
   }, [dispatch]);

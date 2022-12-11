@@ -2,19 +2,25 @@ import React, { useEffect, useRef } from 'react';
 import { Form, Modal, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { actions } from '../../slices/modalSlice';
+import socket from '../../socket';
 
 const AddModule = () => {
+  const dispatch = useDispatch();
   const channelsNames = useSelector(({ channels }) => channels.channels).map(({ name }) => name);
   const formik = useFormik({
     initialValues: {
-      body: '',
+      name: '',
     },
     validationSchema: yup.object({
-      body: yup.string().notOneOf(channelsNames).required(),
+      name: yup.string().notOneOf(channelsNames, 'Должно быть уникальным').required('Обязательное поле'),
     }),
-    onSubmit: ({ body }) => {
-      console.log(body);
+    onSubmit: ({ name }) => {
+      socket.emit('newChannel', { name }, (response) => {
+        console.log(response.status);
+      });
+      dispatch(actions.setModalType(null));
     },
   });
   const inputRef = useRef();
@@ -23,27 +29,28 @@ const AddModule = () => {
   });
 
   return (
-    <Modal show>
+    <Modal centered show onHide={() => dispatch(actions.setModalType(null))}>
       <Modal.Header closeButton>
         <Modal.Title>
           Добавить канал
         </Modal.Title>
-        <Button />
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
-          <Form.Group>
+          <Form.Group controlId="name">
             <Form.Control
               required
-              name="body"
+              name="name"
               ref={inputRef}
-              value={formik.values.body}
+              value={formik.values.name}
+              className="mb-2"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
+            <Form.Label className="visually-hidden">Имя канала</Form.Label>
             <div className="d-flex justify-content-end">
-              <Button>Отменить</Button>
-              <Button>Отправить</Button>
+              <Button variant="secondary" className="me-2" onClick={() => dispatch(actions.setModalType(null))}>Отменить</Button>
+              <Button type="submit">Отправить</Button>
             </div>
           </Form.Group>
         </Form>

@@ -14,6 +14,9 @@ const channelsSlice = createSlice({
     addChannels(state, { payload }) {
       state.channels = payload;
     },
+    addChannel(state, { payload }) {
+      state.channels.push(payload);
+    },
     setCurChannelId(state, { payload }) {
       state.curChannelId = payload;
     },

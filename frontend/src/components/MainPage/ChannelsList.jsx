@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, ButtonGroup, Nav,
+  Button, Dropdown, Nav, ButtonGroup,
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { actions } from '../../slices/channelsSlice';
@@ -24,7 +24,7 @@ const ChannelsList = () => {
           </Button>
           )}
           {removable && (
-          <ButtonGroup className="d-flex dropdown">
+          <Dropdown as={ButtonGroup} className="d-flex">
             <Button
               className="w-100 rounded-0 text-start text-truncate"
               variant={id === curChannelId ? 'secondary' : ''}
@@ -33,7 +33,18 @@ const ChannelsList = () => {
               <span className="me-1">#</span>
               {name}
             </Button>
-          </ButtonGroup>
+            <Dropdown.Toggle
+              split
+              variant={id === curChannelId ? 'secondary' : ''}
+              className="flex-grow-0"
+            >
+              <span className="visually-hidden">Управление каналом</span>
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item>Удалить</Dropdown.Item>
+              <Dropdown.Item>Переименовать</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
           )}
         </Nav.Item>
       ))}

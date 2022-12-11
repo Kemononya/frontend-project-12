@@ -12,13 +12,13 @@ const Messages = () => {
         <p className="m-0">
           <b># general</b>
         </p>
-        <span className="text-muted">3 сообщения</span>
+        <span className="text-muted">{`${messages.length} сообщения`}</span>
       </div>
       <div className="chat-messages overflow-auto px-5">
         {messages.map(({ body, username, id }) => (
           <div className="text-break mb-2" key={id}>
             <b>{username}</b>
-            :
+            {': '}
             {body}
           </div>
         ))}
