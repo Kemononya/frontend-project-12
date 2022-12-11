@@ -31,6 +31,9 @@ const MainPage = () => {
       socket.on('newChannel', (payload) => {
         dispatch(channelsActions.addChannel(payload));
       });
+      socket.on('renameChannel', (payload) => {
+        dispatch(channelsActions.renameChannel(payload));
+      });
     };
     fetchInitData();
   }, [dispatch]);

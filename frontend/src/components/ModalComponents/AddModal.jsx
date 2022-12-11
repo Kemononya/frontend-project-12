@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { actions } from '../../slices/modalSlice';
 import socket from '../../socket';
 
-const AddModule = () => {
+const AddModal = () => {
   const dispatch = useDispatch();
   const channelsNames = useSelector(({ channels }) => channels.channels).map(({ name }) => name);
   const formik = useFormik({
@@ -63,4 +63,4 @@ const AddModule = () => {
   );
 };
 
-export default AddModule;
+export default AddModal;

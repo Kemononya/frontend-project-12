@@ -4,7 +4,6 @@ import getModal from './index';
 
 const ModalComponent = () => {
   const modalType = useSelector(({ modals }) => modals.modalType);
-  console.log(modalType);
   if (!modalType) {
     return null;
   }
