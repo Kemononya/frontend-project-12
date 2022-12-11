@@ -46,8 +46,12 @@ const AddModule = () => {
               className="mb-2"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              isInvalid={formik.touched.name && formik.errors.name} // touched работает неправильно
             />
             <Form.Label className="visually-hidden">Имя канала</Form.Label>
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.name}
+            </Form.Control.Feedback>
             <div className="d-flex justify-content-end">
               <Button variant="secondary" className="me-2" onClick={() => dispatch(actions.setModalType(null))}>Отменить</Button>
               <Button type="submit">Отправить</Button>
