@@ -1,7 +1,7 @@
-import AddModale from './AddModale';
+import AddModal from './AddModal';
 
 const modals = {
-  adding: AddModale,
+  adding: AddModal,
 };
 
 export default (modalName) => modals[modalName];

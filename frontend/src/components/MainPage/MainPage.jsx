@@ -12,15 +12,7 @@ import ChannelsTitle from './ChannelsTitle';
 import ChannelsList from './ChannelsList';
 import Messages from './Messages';
 import ChatForm from './ChatForm';
-// import getModal from '../ModaleComponents/index';
-
-/* const renderModal = (changeState, setTask, stateModal) => {
-  if (!stateModal.modal) {
-    return null;
-  }
-  const ModalComponent = getModal(stateModal.modal);
-  return <ModalComponent changeState={changeState} setTask={setTask} state={stateModal} />;
-}; */
+import ModalComponent from '../ModalComponents/ModalComponent';
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -45,22 +37,25 @@ const MainPage = () => {
   // Или может внутреннюю часть - контейнер перенести
   // Важно также правильно модульные окна расположить
   // Пока запихну всё вместе, обязательно потом поправить
-    <div className="d-flex flex-column h-100">
-      <Container className="h-100 my-4 overflow-hidden rounded shadow">
-        <Row className="h-100 bg-white flex-md-row">
-          <Col xs={4} className="col-md-2 border-end pt-5 px-0 bg-light">
-            <ChannelsTitle />
-            <ChannelsList />
-          </Col>
-          <Col className="p-0 h-100">
-            <div className="d-flex flex-column h-100">
-              <Messages />
-              <ChatForm />
-            </div>
-          </Col>
-        </Row>
-      </Container>
-    </div>
+    <>
+      <div className="d-flex flex-column h-100">
+        <Container className="h-100 my-4 overflow-hidden rounded shadow">
+          <Row className="h-100 bg-white flex-md-row">
+            <Col xs={4} className="col-md-2 border-end pt-5 px-0 bg-light">
+              <ChannelsTitle />
+              <ChannelsList />
+            </Col>
+            <Col className="p-0 h-100">
+              <div className="d-flex flex-column h-100">
+                <Messages />
+                <ChatForm />
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+      <ModalComponent />
+    </>
   );
 };
 
