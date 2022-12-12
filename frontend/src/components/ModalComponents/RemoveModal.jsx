@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { actions } from '../../slices/modalSlice';
@@ -7,9 +7,12 @@ import socket from '../../socket';
 const RemoveModal = () => {
   const dispatch = useDispatch();
   const id = useSelector(({ modals }) => modals.handledChannelId);
+  const [isSubmitting, setSubmitting] = useState(false);
   const submit = () => {
+    setSubmitting(true);
     socket.emit('removeChannel', { id }, (response) => {
       console.log(response.status);
+      setSubmitting(false);
     });
     dispatch(actions.setModalType(null));
   };
@@ -25,7 +28,7 @@ const RemoveModal = () => {
         <p className="lead">Уверены?</p>
         <div className="d-flex justify-content-end">
           <Button variant="secondary" className="me-2" onClick={() => dispatch(actions.setModalType(null))}>Отменить</Button>
-          <Button variant="danger" onClick={submit}>Отправить</Button>
+          <Button variant="danger" disabled={isSubmitting} onClick={submit}>Отправить</Button>
         </div>
       </Modal.Body>
     </Modal>

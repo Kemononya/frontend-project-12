@@ -10,6 +10,7 @@ import routes from '../routes';
 const LoginPage = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(false);
+  const [isSubmitting, setSubmitting] = useState(false);
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -17,12 +18,16 @@ const LoginPage = () => {
     },
     onSubmit: async ({ username, password }) => {
       try {
+        setSubmitting(true);
         const { data } = await axios.post(routes.loginPath(), { username, password });
         localStorage.setItem('userId', data.token);
+        localStorage.setItem('username', data.username);
         setError(false);
+        setSubmitting(false);
         navigate('/');
       } catch (err) {
         setError(true);
+        setSubmitting(false);
         console.error(err.message);
       }
     },
@@ -70,7 +75,14 @@ const LoginPage = () => {
               />
               {error && <Form.Text className="text-danger">Неверные имя пользователя или пароль</Form.Text>}
             </FloatingLabel>
-            <Button type="submit" className="w-100 mb-3" variant="outline-primary">Войти</Button>
+            <Button
+              type="submit"
+              className="w-100 mb-3"
+              variant="outline-primary"
+              disabled={isSubmitting}
+            >
+              Войти
+            </Button>
           </Form>
         </Row>
       </Container>

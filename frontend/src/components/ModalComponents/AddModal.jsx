@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Form, Modal, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -9,6 +9,7 @@ import socket from '../../socket';
 const AddModal = () => {
   const dispatch = useDispatch();
   const channelsNames = useSelector(({ channels }) => channels.channels).map(({ name }) => name);
+  const [isSubmitting, setSubmitting] = useState(false);
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -17,8 +18,10 @@ const AddModal = () => {
       name: yup.string().notOneOf(channelsNames, 'Должно быть уникальным').required('Обязательное поле'),
     }),
     onSubmit: ({ name }) => {
+      setSubmitting(true);
       socket.emit('newChannel', { name }, (response) => {
         console.log(response.status);
+        setSubmitting(false);
       });
       dispatch(actions.setModalType(null));
     },
@@ -54,7 +57,7 @@ const AddModal = () => {
             </Form.Control.Feedback>
             <div className="d-flex justify-content-end">
               <Button variant="secondary" className="me-2" onClick={() => dispatch(actions.setModalType(null))}>Отменить</Button>
-              <Button type="submit">Отправить</Button>
+              <Button type="submit" disabled={isSubmitting}>Отправить</Button>
             </div>
           </Form.Group>
         </Form>
