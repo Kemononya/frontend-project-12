@@ -9,7 +9,7 @@ import routes from '../routes';
 import image from '../assets/LoginImg.jpg';
 import Header from './Header';
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(false);
   const [isSubmitting, setSubmitting] = useState(false);
@@ -109,4 +109,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

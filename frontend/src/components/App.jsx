@@ -3,6 +3,7 @@ import {
 } from 'react-router-dom';
 import LoginPage from './LoginPage';
 import MainPage from './MainPage/MainPage';
+import RegisterPage from './RegisterPage';
 
 const PrivateRoute = () => {
   const isAuth = localStorage.getItem('userId');
@@ -18,6 +19,7 @@ const App = () => (
         <Route path="/" element={<MainPage />} />
       </Route>
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<RegisterPage />} />
     </Routes>
   </BrowserRouter>
 );

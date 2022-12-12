@@ -28,7 +28,7 @@ const RemoveModal = () => {
         <p className="lead">Уверены?</p>
         <div className="d-flex justify-content-end">
           <Button variant="secondary" className="me-2" onClick={() => dispatch(actions.setModalType(null))}>Отменить</Button>
-          <Button variant="danger" disabled={isSubmitting} onClick={submit}>Отправить</Button>
+          <Button variant="danger" disabled={isSubmitting} onClick={submit}>Удалить</Button>
         </div>
       </Modal.Body>
     </Modal>
