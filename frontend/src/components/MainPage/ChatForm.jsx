@@ -2,10 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import socket from '../../socket';
 
 const ChatForm = () => {
+  const { t } = useTranslation();
   const curChannelId = useSelector(({ channels }) => channels.curChannelId);
   const username = localStorage.getItem('username');
   const [isSubmitting, setSubmitting] = useState(false);
@@ -42,7 +44,7 @@ const ChatForm = () => {
             ref={inputRef}
             className="border-0 p-0 ps-2"
             name="body"
-            placeholder="Введите сообщение..."
+            placeholder={t('main.chat')}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.body}

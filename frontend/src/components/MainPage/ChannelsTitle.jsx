@@ -1,14 +1,16 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { actions } from '../../slices/modalSlice';
 
 const ChannelsTitle = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   return (
     <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
       <span>
-        Каналы
+        {t('main.channels')}
       </span>
       <Button
         className="p-0 text-primary btn-group-vertical"

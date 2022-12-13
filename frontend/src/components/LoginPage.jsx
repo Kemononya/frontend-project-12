@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import {
   Form, FloatingLabel, Button, Container, Row, Col, Card, Image,
 } from 'react-bootstrap';
@@ -10,6 +11,7 @@ import image from '../assets/LoginImg.jpg';
 import Header from './Header';
 
 const LoginPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [error401, setError] = useState(false);
   const [isSubmitting, setSubmitting] = useState(false);
@@ -54,10 +56,10 @@ const LoginPage = () => {
                   <Image roundedCircle src={image} alt="Войти" />
                 </Col>
                 <Col as={Form} xs={12} md={6} className="mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
-                  <h1 className="text-center mb-4">Войти</h1>
+                  <h1 className="text-center mb-4">{t('login.title')}</h1>
                   <FloatingLabel
                     controlId="username"
-                    label="Ваше имя"
+                    label={t('login.username')}
                     className="mb-3"
                   >
                     <Form.Control
@@ -67,13 +69,13 @@ const LoginPage = () => {
                       onBlur={formik.handleBlur}
                       value={formik.values.username}
                       name="username"
-                      placeholder="Ваше имя"
+                      placeholder={t('login.username')}
                       isInvalid={error401}
                     />
                   </FloatingLabel>
                   <FloatingLabel
                     controlId="password"
-                    label="Пароль"
+                    label={t('login.password')}
                     className="mb-4"
                   >
                     <Form.Control
@@ -83,11 +85,11 @@ const LoginPage = () => {
                       value={formik.values.password}
                       name="password"
                       type="password"
-                      placeholder="Пароль"
+                      placeholder={t('login.password')}
                       isInvalid={error401}
                     />
                     <Form.Control.Feedback type="invalid">
-                      Неверные имя пользователя или пароль
+                      {t('errors.loginError')}
                     </Form.Control.Feedback>
                   </FloatingLabel>
                   <Button
@@ -96,15 +98,15 @@ const LoginPage = () => {
                     variant="outline-primary"
                     disabled={isSubmitting}
                   >
-                    Войти
+                    {t('login.btn')}
                   </Button>
                 </Col>
               </Card.Body>
               <Card.Footer className="p-4">
                 <div className="text-center">
-                  <span>Нет аккаунта?</span>
+                  <span>{t('login.footerFirst')}</span>
                   {' '}
-                  <a href="/signup">Регистрация</a>
+                  <a href="/signup">{t('login.footerSecond')}</a>
                 </div>
               </Card.Footer>
             </Card>

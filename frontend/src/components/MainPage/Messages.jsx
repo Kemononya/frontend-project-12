@@ -1,8 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { selectors } from '../../slices/messagesSlice';
 
 const Messages = () => {
+  const { t } = useTranslation();
   const curChannelId = useSelector(({ channels }) => channels.curChannelId);
   const curChannel = useSelector(({ channels }) => (
     channels.channels.find(({ id }) => id === curChannelId)));
@@ -15,7 +17,7 @@ const Messages = () => {
         <p className="m-0">
           <b>{`# ${curChannelName}`}</b>
         </p>
-        <span className="text-muted">{`${messages.length} сообщения`}</span>
+        <span className="text-muted">{t('main.message', { count: messages.length })}</span>
       </div>
       <div className="chat-messages overflow-auto px-5">
         {messages.map(({ body, username, id }) => (

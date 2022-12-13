@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import {
   Form, FloatingLabel, Button, Container, Row, Col, Card, Image,
@@ -11,6 +12,7 @@ import image from '../assets/RegisterImg.jpg';
 import Header from './Header';
 
 const RegisterPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [error409, setError] = useState(false);
   const [isSubmitting, setSubmitting] = useState(false);
@@ -21,9 +23,9 @@ const RegisterPage = () => {
       confirmPassword: '',
     },
     validationSchema: yup.object({
-      username: yup.string().min(3, 'От 3 до 20 символов').max(20, 'От 3 до 20 символов').required('Обязательное поле'),
-      password: yup.string().min(6, 'Не менее 6 символов').required('Обязательное поле'),
-      confirmPassword: yup.string().oneOf([yup.ref('password')], 'Пароли должны совпадать'),
+      username: yup.string().min(3, t('errors.min3Max20')).max(20, t('errors.min3Max20')).required(t('errors.required')),
+      password: yup.string().min(6, t('errors.min6')).required(t('errors.required')),
+      confirmPassword: yup.string().oneOf([yup.ref('password')], t('errors.password')),
     }),
     onSubmit: async ({ username, password }) => {
       try {
@@ -61,10 +63,10 @@ const RegisterPage = () => {
                   <Image roundedCircle src={image} alt="Войти" />
                 </Col>
                 <Col as={Form} xs={12} md={6} className="mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
-                  <h1 className="text-center mb-4">Регистрация</h1>
+                  <h1 className="text-center mb-4">{t('register.title')}</h1>
                   <FloatingLabel
                     controlId="username"
-                    label="Имя пользователя"
+                    label={t('register.username')}
                     className="mb-3"
                   >
                     <Form.Control
@@ -74,7 +76,7 @@ const RegisterPage = () => {
                       onBlur={formik.handleBlur}
                       value={formik.values.username}
                       name="username"
-                      placeholder="Имя пользователя"
+                      placeholder={t('register.username')}
                       isInvalid={formik.touched.username && formik.errors.username}
                     />
                     <Form.Control.Feedback type="invalid">
@@ -83,7 +85,7 @@ const RegisterPage = () => {
                   </FloatingLabel>
                   <FloatingLabel
                     controlId="password"
-                    label="Пароль"
+                    label={t('register.password')}
                     className="mb-4"
                   >
                     <Form.Control
@@ -93,7 +95,7 @@ const RegisterPage = () => {
                       value={formik.values.password}
                       name="password"
                       type="password"
-                      placeholder="Пароль"
+                      placeholder={t('register.password')}
                       isInvalid={formik.touched.password && formik.errors.password}
                     />
                     <Form.Control.Feedback type="invalid">
@@ -102,7 +104,7 @@ const RegisterPage = () => {
                   </FloatingLabel>
                   <FloatingLabel
                     controlId="confirmPassword"
-                    label="Подтвердите пароль"
+                    label={t('register.confirmPassword')}
                     className="mb-4"
                   >
                     <Form.Control
@@ -112,11 +114,11 @@ const RegisterPage = () => {
                       value={formik.values.confirmPassword}
                       name="confirmPassword"
                       type="password"
-                      placeholder="Подтвердите пароль"
+                      placeholder={t('register.confirmPassword')}
                       isInvalid={formik.errors.confirmPassword || error409}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {formik.errors.confirmPassword || 'Такой пользователь уже существует'}
+                      {formik.errors.confirmPassword || t('errors.registerError')}
                     </Form.Control.Feedback>
                   </FloatingLabel>
                   <Button
@@ -125,7 +127,7 @@ const RegisterPage = () => {
                     variant="outline-primary"
                     disabled={isSubmitting}
                   >
-                    Зарегистрироваться
+                    {t('register.btn')}
                   </Button>
                 </Col>
               </Card.Body>

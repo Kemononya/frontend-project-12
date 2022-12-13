@@ -3,10 +3,12 @@ import {
   Button, Dropdown, Nav, ButtonGroup,
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { actions as channelsActions } from '../../slices/channelsSlice';
 import { actions as modalActions } from '../../slices/modalSlice';
 
 const ChannelsList = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const channelsList = useSelector(({ channels }) => channels.channels);
   const curChannelId = useSelector(({ channels }) => channels.curChannelId);
@@ -49,11 +51,11 @@ const ChannelsList = () => {
                 variant={id === curChannelId ? 'secondary' : ''}
                 className="flex-grow-0"
               >
-                <span className="visually-hidden">Управление каналом</span>
+                <span className="visually-hidden">{t('main.control')}</span>
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item onClick={removeChannel}>Удалить</Dropdown.Item>
-                <Dropdown.Item onClick={renameChannel}>Переименовать</Dropdown.Item>
+                <Dropdown.Item onClick={removeChannel}>{t('main.remove')}</Dropdown.Item>
+                <Dropdown.Item onClick={renameChannel}>{t('main.rename')}</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
             )}
