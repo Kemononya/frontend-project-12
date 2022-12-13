@@ -53,7 +53,7 @@ const LoginPage = () => {
             <Card className="shadow-sm">
               <Card.Body as={Row} className="p-5">
                 <Col xs={12} md={6} className="d-flex align-items-center justify-content-center">
-                  <Image roundedCircle src={image} alt="Войти" />
+                  <Image roundedCircle src={image} alt={t('login.title')} />
                 </Col>
                 <Col as={Form} xs={12} md={6} className="mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
                   <h1 className="text-center mb-4">{t('login.title')}</h1>
@@ -105,7 +105,6 @@ const LoginPage = () => {
               <Card.Footer className="p-4">
                 <div className="text-center">
                   <span>{t('login.footerFirst')}</span>
-                  {' '}
                   <a href="/signup">{t('login.footerSecond')}</a>
                 </div>
               </Card.Footer>

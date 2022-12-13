@@ -60,7 +60,7 @@ const RegisterPage = () => {
             <Card className="shadow-sm">
               <Card.Body as={Row} className="p-5">
                 <Col xs={12} md={6} className="d-flex align-items-center justify-content-center">
-                  <Image roundedCircle src={image} alt="Войти" />
+                  <Image roundedCircle src={image} alt={t('register.title')} />
                 </Col>
                 <Col as={Form} xs={12} md={6} className="mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
                   <h1 className="text-center mb-4">{t('register.title')}</h1>

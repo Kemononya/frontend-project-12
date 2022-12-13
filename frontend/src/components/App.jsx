@@ -4,6 +4,7 @@ import {
 import LoginPage from './LoginPage';
 import MainPage from './MainPage/MainPage';
 import RegisterPage from './RegisterPage';
+import NotFoundPage from './NotFoundPage';
 
 const PrivateRoute = () => {
   const isAuth = localStorage.getItem('userId');
@@ -11,7 +12,7 @@ const PrivateRoute = () => {
     isAuth ? <Outlet /> : <Navigate to="login" />
   );
 };
-// в 8 уроке указано про useLocation, с помощью которого можно задать как отобразить страницу 404
+
 const App = () => (
   <BrowserRouter>
     <Routes>
@@ -20,6 +21,7 @@ const App = () => (
       </Route>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<RegisterPage />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   </BrowserRouter>
 );

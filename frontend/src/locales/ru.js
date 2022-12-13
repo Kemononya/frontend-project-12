@@ -15,7 +15,7 @@ export default {
       username: 'Ваше имя',
       password: 'Пароль',
       btn: 'Войти',
-      footerFirst: 'Нет аккаунта?',
+      footerFirst: 'Нет аккаунта? ',
       footerSecond: 'Регистрация',
     },
     register: {
@@ -47,6 +47,11 @@ export default {
       btnCancel: 'Отменить',
       btnSubmit: 'Отправить',
       btnRemove: 'Удалить',
+    },
+    notFound: {
+      title: 'Страница не найдена',
+      footerFirst: 'Но вы можете перейти ',
+      footerSecond: 'на главную страницу',
     },
   },
 };
