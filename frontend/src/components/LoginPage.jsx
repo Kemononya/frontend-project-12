@@ -11,7 +11,7 @@ import Header from './Header';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const [error, setError] = useState(false);
+  const [error401, setError] = useState(false);
   const [isSubmitting, setSubmitting] = useState(false);
   const formik = useFormik({
     initialValues: {
@@ -28,9 +28,11 @@ const LoginPage = () => {
         setSubmitting(false);
         navigate('/');
       } catch (err) {
-        setError(true);
         setSubmitting(false);
         console.error(err.message);
+        if (err.response.status === 401) {
+          setError(true);
+        }
       }
     },
   });
@@ -66,7 +68,7 @@ const LoginPage = () => {
                       value={formik.values.username}
                       name="username"
                       placeholder="Ваше имя"
-                      isInvalid={error}
+                      isInvalid={error401}
                     />
                   </FloatingLabel>
                   <FloatingLabel
@@ -82,7 +84,7 @@ const LoginPage = () => {
                       name="password"
                       type="password"
                       placeholder="Пароль"
-                      isInvalid={error}
+                      isInvalid={error401}
                     />
                     <Form.Control.Feedback type="invalid">
                       Неверные имя пользователя или пароль

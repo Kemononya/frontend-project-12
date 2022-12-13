@@ -14,7 +14,7 @@ import Messages from './Messages';
 import ChatForm from './ChatForm';
 import ModalComponent from '../ModalComponents/ModalComponent';
 import Header from '../Header';
-
+// Перенести подписку на сокеты куда-то где проходит инициализация
 const MainPage = () => {
   const dispatch = useDispatch();
 

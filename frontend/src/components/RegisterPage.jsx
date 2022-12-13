@@ -12,7 +12,7 @@ import Header from './Header';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-  const [error, setError] = useState(false);
+  const [error409, setError] = useState(false);
   const [isSubmitting, setSubmitting] = useState(false);
   const formik = useFormik({
     initialValues: {
@@ -113,7 +113,7 @@ const RegisterPage = () => {
                       name="confirmPassword"
                       type="password"
                       placeholder="Подтвердите пароль"
-                      isInvalid={formik.errors.confirmPassword || error}
+                      isInvalid={formik.errors.confirmPassword || error409}
                     />
                     <Form.Control.Feedback type="invalid">
                       {formik.errors.confirmPassword || 'Такой пользователь уже существует'}
