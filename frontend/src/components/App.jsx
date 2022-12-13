@@ -11,7 +11,7 @@ const PrivateRoute = () => {
     isAuth ? <Outlet /> : <Navigate to="login" />
   );
 };
-
+// в 8 уроке указано про useLocation, с помощью которого можно задать как отобразить страницу 404
 const App = () => (
   <BrowserRouter>
     <Routes>

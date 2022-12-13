@@ -66,6 +66,7 @@ const LoginPage = () => {
                       value={formik.values.username}
                       name="username"
                       placeholder="Ваше имя"
+                      isInvalid={error}
                     />
                   </FloatingLabel>
                   <FloatingLabel
@@ -81,8 +82,11 @@ const LoginPage = () => {
                       name="password"
                       type="password"
                       placeholder="Пароль"
+                      isInvalid={error}
                     />
-                    {error && <Form.Text className="text-danger">Неверные имя пользователя или пароль</Form.Text>}
+                    <Form.Control.Feedback type="invalid">
+                      Неверные имя пользователя или пароль
+                    </Form.Control.Feedback>
                   </FloatingLabel>
                   <Button
                     type="submit"

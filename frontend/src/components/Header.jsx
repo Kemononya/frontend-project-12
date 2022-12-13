@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar, Container, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <Navbar bg="white" expand="lg" className="shadow-sm">
       <Container>
-        <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
+        <Link className="navbar-brand" to="/">Hexlet Chat</Link>
         {localStorage.getItem('userId') && <Button onClick={logOut}>Выйти</Button>}
       </Container>
     </Navbar>

@@ -3,7 +3,8 @@ import { Form, Modal, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
-import { actions } from '../../slices/modalSlice';
+import { actions as modalActions } from '../../slices/modalSlice';
+import { actions as channelsActions } from '../../slices/channelsSlice';
 import socket from '../../socket';
 
 const AddModal = () => {
@@ -20,10 +21,12 @@ const AddModal = () => {
     onSubmit: ({ name }) => {
       setSubmitting(true);
       socket.emit('newChannel', { name }, (response) => {
-        console.log(response.status);
+        const { status, data } = response;
+        console.log(status);
+        dispatch(channelsActions.setCurChannelId(data.id));
         setSubmitting(false);
       });
-      dispatch(actions.setModalType(null));
+      dispatch(modalActions.setModalType(null));
     },
   });
   const inputRef = useRef();
@@ -32,7 +35,7 @@ const AddModal = () => {
   });
 
   return (
-    <Modal centered show onHide={() => dispatch(actions.setModalType(null))}>
+    <Modal centered show onHide={() => dispatch(modalActions.setModalType(null))}>
       <Modal.Header closeButton>
         <Modal.Title>
           Добавить канал
@@ -56,7 +59,7 @@ const AddModal = () => {
               {formik.errors.name}
             </Form.Control.Feedback>
             <div className="d-flex justify-content-end">
-              <Button variant="secondary" className="me-2" onClick={() => dispatch(actions.setModalType(null))}>Отменить</Button>
+              <Button variant="secondary" className="me-2" onClick={() => dispatch(modalActions.setModalType(null))}>Отменить</Button>
               <Button type="submit" disabled={isSubmitting}>Отправить</Button>
             </div>
           </Form.Group>
