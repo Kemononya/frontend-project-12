@@ -1,46 +1,39 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import * as yup from 'yup';
 import {
   Form, FloatingLabel, Button, Container, Row, Col, Card, Image,
 } from 'react-bootstrap';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-import routes from '../routes';
-import image from '../assets/RegisterImg.jpg';
-import Header from './Header';
+import routes from '../../routes';
+import image from '../../assets/LoginImg.jpg';
+import Header from '../Header';
 
-const RegisterPage = () => {
+const LoginPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [error409, setError] = useState(false);
+  const [error401, setError] = useState(false);
   const [isSubmitting, setSubmitting] = useState(false);
   const formik = useFormik({
     initialValues: {
       username: '',
       password: '',
-      confirmPassword: '',
     },
-    validationSchema: yup.object({
-      username: yup.string().min(3, t('errors.min3Max20')).max(20, t('errors.min3Max20')).required(t('errors.required')),
-      password: yup.string().min(6, t('errors.min6')).required(t('errors.required')),
-      confirmPassword: yup.string().oneOf([yup.ref('password')], t('errors.password')),
-    }),
     onSubmit: async ({ username, password }) => {
       try {
         setSubmitting(true);
-        const { data } = await axios.post(routes.signUpPath(), { username, password });
+        const { data } = await axios.post(routes.loginPath(), { username, password });
         localStorage.setItem('userId', data.token);
         localStorage.setItem('username', data.username);
-        setSubmitting(false);
         setError(false);
+        setSubmitting(false);
         navigate('/');
       } catch (err) {
         setSubmitting(false);
         console.error(err.message);
-        if (err.response.status === 409) {
+        if (err.response.status === 401) {
           setError(true);
         }
         if (err.message === 'Network Error') {
@@ -65,13 +58,13 @@ const RegisterPage = () => {
               <Card className="shadow-sm">
                 <Card.Body as={Row} className="p-5">
                   <Col xs={12} md={6} className="d-flex align-items-center justify-content-center">
-                    <Image roundedCircle src={image} alt={t('register.title')} />
+                    <Image roundedCircle src={image} alt={t('login.title')} />
                   </Col>
                   <Col as={Form} xs={12} md={6} className="mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
-                    <h1 className="text-center mb-4">{t('register.title')}</h1>
+                    <h1 className="text-center mb-4">{t('login.title')}</h1>
                     <FloatingLabel
                       controlId="username"
-                      label={t('register.username')}
+                      label={t('login.username')}
                       className="mb-3"
                     >
                       <Form.Control
@@ -81,16 +74,13 @@ const RegisterPage = () => {
                         onBlur={formik.handleBlur}
                         value={formik.values.username}
                         name="username"
-                        placeholder={t('register.username')}
-                        isInvalid={formik.errors.username || error409}
+                        placeholder={t('login.username')}
+                        isInvalid={error401}
                       />
-                      <Form.Control.Feedback type="invalid">
-                        {formik.errors.username}
-                      </Form.Control.Feedback>
                     </FloatingLabel>
                     <FloatingLabel
                       controlId="password"
-                      label={t('register.password')}
+                      label={t('login.password')}
                       className="mb-4"
                     >
                       <Form.Control
@@ -100,30 +90,11 @@ const RegisterPage = () => {
                         value={formik.values.password}
                         name="password"
                         type="password"
-                        placeholder={t('register.password')}
-                        isInvalid={(formik.errors.password && formik.touched.password) || error409}
+                        placeholder={t('login.password')}
+                        isInvalid={error401}
                       />
                       <Form.Control.Feedback type="invalid">
-                        {formik.errors.password}
-                      </Form.Control.Feedback>
-                    </FloatingLabel>
-                    <FloatingLabel
-                      controlId="confirmPassword"
-                      label={t('register.confirmPassword')}
-                      className="mb-4"
-                    >
-                      <Form.Control
-                        required
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.confirmPassword}
-                        name="confirmPassword"
-                        type="password"
-                        placeholder={t('register.confirmPassword')}
-                        isInvalid={formik.errors.confirmPassword || error409}
-                      />
-                      <Form.Control.Feedback type="invalid">
-                        {formik.errors.confirmPassword || t('errors.registerError')}
+                        {t('errors.loginError')}
                       </Form.Control.Feedback>
                     </FloatingLabel>
                     <Button
@@ -132,10 +103,16 @@ const RegisterPage = () => {
                       variant="outline-primary"
                       disabled={isSubmitting}
                     >
-                      {t('register.btn')}
+                      {t('login.btn')}
                     </Button>
                   </Col>
                 </Card.Body>
+                <Card.Footer className="p-4">
+                  <div className="text-center">
+                    <span>{t('login.footerFirst')}</span>
+                    <Link to="/signup">{t('login.footerSecond')}</Link>
+                  </div>
+                </Card.Footer>
               </Card>
             </Col>
           </Row>
@@ -147,4 +124,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default LoginPage;

@@ -9,14 +9,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import { actions as channelsActions } from '../../slices/channelsSlice';
 import { actions as messagesActions } from '../../slices/messagesSlice';
 import routes from '../../routes';
-import socket from '../../socket';
-import ChannelsTitle from './ChannelsTitle';
-import ChannelsList from './ChannelsList';
-import Messages from './Messages';
-import ChatForm from './ChatForm';
+import ChannelsTitle from '../MainPageElements/ChannelsTitle';
+import ChannelsList from '../MainPageElements/ChannelsList';
+import Messages from '../MainPageElements/Messages';
+import ChatForm from '../MainPageElements/ChatForm';
 import ModalComponent from '../ModalComponents/ModalComponent';
 import Header from '../Header';
-// Перенести подписку на сокеты куда-то где проходит инициализация
+
 const MainPage = () => {
   const dispatch = useDispatch();
 
@@ -28,18 +27,6 @@ const MainPage = () => {
       dispatch(channelsActions.addChannels(channels));
       dispatch(channelsActions.setCurChannelId(currentChannelId));
       dispatch(messagesActions.addMessages(messages));
-      socket.on('newMessage', (payload) => {
-        dispatch(messagesActions.addMessage(payload));
-      });
-      socket.on('newChannel', (payload) => {
-        dispatch(channelsActions.addChannel(payload));
-      });
-      socket.on('renameChannel', (payload) => {
-        dispatch(channelsActions.renameChannel(payload));
-      });
-      socket.on('removeChannel', (payload) => {
-        dispatch(channelsActions.removeChannel(payload));
-      });
     };
     fetchInitData();
   }, [dispatch]);
