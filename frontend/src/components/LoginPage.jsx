@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import {
@@ -110,7 +110,7 @@ const LoginPage = () => {
                 <Card.Footer className="p-4">
                   <div className="text-center">
                     <span>{t('login.footerFirst')}</span>
-                    <a href="/signup">{t('login.footerSecond')}</a>
+                    <Link to="/signup">{t('login.footerSecond')}</Link>
                   </div>
                 </Card.Footer>
               </Card>

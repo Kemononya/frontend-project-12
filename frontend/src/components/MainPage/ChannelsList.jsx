@@ -4,10 +4,12 @@ import {
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 import { actions as channelsActions } from '../../slices/channelsSlice';
 import { actions as modalActions } from '../../slices/modalSlice';
 
 const ChannelsList = () => {
+  filter.loadDictionary('ru');
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const channelsList = useSelector(({ channels }) => channels.channelsList);
@@ -33,7 +35,7 @@ const ChannelsList = () => {
               onClick={() => dispatch(channelsActions.setCurChannelId(id))}
             >
               <span className="me-1">#</span>
-              {name}
+              {filter.clean(name)}
             </Button>
             )}
             {removable && (
@@ -44,7 +46,7 @@ const ChannelsList = () => {
                 onClick={() => dispatch(channelsActions.setCurChannelId(id))}
               >
                 <span className="me-1">#</span>
-                {name}
+                {filter.clean(name)}
               </Button>
               <Dropdown.Toggle
                 split
