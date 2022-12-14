@@ -22,6 +22,9 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    socket.on('connect', () => {
+      console.log('start!');
+    });
     socket.on('newMessage', (payload) => {
       dispatch(messagesActions.addMessage(payload));
     });
