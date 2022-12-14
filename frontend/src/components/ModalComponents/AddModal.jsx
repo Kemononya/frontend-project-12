@@ -11,7 +11,8 @@ import socket from '../../socket';
 const AddModal = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const channelsNames = useSelector(({ channels }) => channels.channels).map(({ name }) => name);
+  const channelsNames = useSelector(({ channels }) => channels.channelsList)
+    .map(({ name }) => name);
   const [isSubmitting, setSubmitting] = useState(false);
   const formik = useFormik({
     initialValues: {

@@ -3,7 +3,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  channels: [],
+  channelsList: [],
   curChannelId: 1,
 };
 
@@ -12,18 +12,18 @@ const channelsSlice = createSlice({
   initialState,
   reducers: {
     addChannels(state, { payload }) {
-      state.channels = payload;
+      state.channelsList = payload;
     },
     addChannel(state, { payload }) {
-      state.channels.push(payload);
+      state.channelsList.push(payload);
     },
     renameChannel(state, { payload }) {
-      const curChannel = state.channels.find(({ id }) => id === payload.id);
+      const curChannel = state.channelsList.find(({ id }) => id === payload.id);
       curChannel.name = payload.name;
     },
     removeChannel(state, { payload }) {
-      const newChannelsList = state.channels.filter(({ id }) => id !== payload.id);
-      state.channels = newChannelsList;
+      const newChannelsList = state.channelsList.filter(({ id }) => id !== payload.id);
+      state.channelsList = newChannelsList;
       state.curChannelId = 1;
     },
     setCurChannelId(state, { payload }) {

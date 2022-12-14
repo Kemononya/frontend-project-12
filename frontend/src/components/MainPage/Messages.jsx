@@ -5,12 +5,14 @@ import { selectors } from '../../slices/messagesSlice';
 
 const Messages = () => {
   const { t } = useTranslation();
-  const curChannelId = useSelector(({ channels }) => channels.curChannelId);
-  const curChannel = useSelector(({ channels }) => (
-    channels.channels.find(({ id }) => id === curChannelId)));
-  const curChannelName = curChannel ? curChannel.name : 'general';
+  const { currentChannel, currentChannelId } = useSelector(({ channels }) => {
+    const { curChannelId, channelsList } = channels;
+    const curChannel = channelsList.find(({ id }) => id === curChannelId);
+    return { currentChannel: curChannel, currentChannelId: curChannelId };
+  });
+  const curChannelName = currentChannel ? currentChannel.name : 'general';
   const messages = useSelector(selectors.selectAll)
-    .filter(({ channelId }) => channelId === curChannelId);
+    .filter(({ channelId }) => channelId === currentChannelId);
   return (
     <>
       <div className="bg-light mb-4 p-3 shadow-sm small">

@@ -10,7 +10,8 @@ import socket from '../../socket';
 const RenameModal = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const channelsNames = useSelector(({ channels }) => channels.channels).map(({ name }) => name);
+  const channelsNames = useSelector(({ channels }) => channels.channelsList)
+    .map(({ name }) => name);
   const id = useSelector(({ modals }) => modals.handledChannelId);
   const [isSubmitting, setSubmitting] = useState(false);
   const formik = useFormik({

@@ -10,7 +10,7 @@ import { actions as modalActions } from '../../slices/modalSlice';
 const ChannelsList = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const channelsList = useSelector(({ channels }) => channels.channels);
+  const channelsList = useSelector(({ channels }) => channels.channelsList);
   const curChannelId = useSelector(({ channels }) => channels.curChannelId);
   return (
     <Nav as="ul" className="flex-column nav-pills nav-fill px-2">
