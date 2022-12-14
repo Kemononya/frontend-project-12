@@ -4,6 +4,8 @@ import {
   Container, Row, Col,
 } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { actions as channelsActions } from '../../slices/channelsSlice';
 import { actions as messagesActions } from '../../slices/messagesSlice';
 import routes from '../../routes';
@@ -61,6 +63,7 @@ const MainPage = () => {
           </Row>
         </Container>
       </div>
+      <ToastContainer />
       <ModalComponent />
     </>
   );

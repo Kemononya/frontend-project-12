@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import { actions as modalActions } from '../../slices/modalSlice';
 import { actions as channelsActions } from '../../slices/channelsSlice';
 import socket from '../../socket';
@@ -29,6 +30,7 @@ const AddModal = () => {
         dispatch(channelsActions.setCurChannelId(data.id));
         setSubmitting(false);
       });
+      toast.success(t('toastify.add'));
       dispatch(modalActions.setModalType(null));
     },
   });

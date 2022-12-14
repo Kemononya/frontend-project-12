@@ -53,5 +53,11 @@ export default {
       footerFirst: 'Но вы можете перейти ',
       footerSecond: 'на главную страницу',
     },
+    toastify: {
+      add: 'Канал создан',
+      rename: 'Канал переименован',
+      remove: 'Канал удалён',
+      error: 'Ошибка соединения',
+    },
   },
 };

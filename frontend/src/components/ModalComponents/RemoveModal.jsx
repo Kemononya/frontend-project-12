@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import { actions } from '../../slices/modalSlice';
 import socket from '../../socket';
 
@@ -16,6 +17,7 @@ const RemoveModal = () => {
       console.log(response.status);
       setSubmitting(false);
     });
+    toast.success(t('toastify.remove'));
     dispatch(actions.setModalType(null));
   };
 

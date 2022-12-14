@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import { actions } from '../../slices/modalSlice';
 import socket from '../../socket';
 
@@ -27,6 +28,7 @@ const RenameModal = () => {
         console.log(response.status);
         setSubmitting(false);
       });
+      toast.success(t('toastify.rename'));
       dispatch(actions.setModalType(null));
     },
   });
