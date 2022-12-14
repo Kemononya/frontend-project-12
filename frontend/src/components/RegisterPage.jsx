@@ -77,7 +77,7 @@ const RegisterPage = () => {
                       value={formik.values.username}
                       name="username"
                       placeholder={t('register.username')}
-                      isInvalid={formik.touched.username && formik.errors.username}
+                      isInvalid={formik.errors.username || error409}
                     />
                     <Form.Control.Feedback type="invalid">
                       {formik.errors.username}
@@ -96,7 +96,7 @@ const RegisterPage = () => {
                       name="password"
                       type="password"
                       placeholder={t('register.password')}
-                      isInvalid={formik.touched.password && formik.errors.password}
+                      isInvalid={(formik.errors.password && formik.touched.password) || error409}
                     />
                     <Form.Control.Feedback type="invalid">
                       {formik.errors.password}
