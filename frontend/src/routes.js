@@ -4,5 +4,4 @@ export default {
   loginPath: () => [apiPath, 'login'].join('/'),
   dataPath: () => [apiPath, 'data'].join('/'),
   signUpPath: () => [apiPath, 'signup'].join('/'),
-  socketPath: () => 'ws://localhost:3000',
 };
