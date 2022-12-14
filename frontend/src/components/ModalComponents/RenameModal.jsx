@@ -11,13 +11,17 @@ import socket from '../../socket';
 const RenameModal = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const channelsNames = useSelector(({ channels }) => channels.channelsList)
-    .map(({ name }) => name);
   const id = useSelector(({ modals }) => modals.handledChannelId);
+  const { channelsNames, curChannelName } = useSelector(({ channels }) => {
+    const { channelsList } = channels;
+    const names = channelsList.map(({ name }) => name);
+    const curChannel = channelsList.find((item) => item.id === id);
+    return { channelsNames: names, curChannelName: curChannel.name };
+  });
   const [isSubmitting, setSubmitting] = useState(false);
   const formik = useFormik({
     initialValues: {
-      name: '',
+      name: curChannelName,
     },
     validationSchema: yup.object({
       name: yup.string().notOneOf(channelsNames, t('errors.unique')).required(t('errors.required')),
@@ -35,7 +39,8 @@ const RenameModal = () => {
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
-  });
+    inputRef.current.select();
+  }, []);
 
   return (
     <Modal centered show onHide={() => dispatch(actions.setModalType(null))}>
