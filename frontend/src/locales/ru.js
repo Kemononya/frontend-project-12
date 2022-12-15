@@ -12,7 +12,7 @@ export default {
     },
     login: {
       title: 'Войти',
-      username: 'Ваше имя',
+      username: 'Ваш ник',
       password: 'Пароль',
       btn: 'Войти',
       footerFirst: 'Нет аккаунта? ',
