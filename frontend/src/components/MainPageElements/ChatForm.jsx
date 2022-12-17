@@ -48,6 +48,7 @@ const ChatForm = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.body}
+            aria-label="Новое сообщение"
           />
           <Button
             type="submit"
