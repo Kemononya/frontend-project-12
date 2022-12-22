@@ -40,7 +40,7 @@ const AddModal = () => {
   });
 
   return (
-    <Modal centered show onHide={() => dispatch(modalActions.setModalType(null))}>
+    <Modal centered show onHide={() => dispatch(modalActions.setModalType(null))} animation={false}>
       <Modal.Header closeButton>
         <Modal.Title>
           {t('modal.add')}
@@ -57,7 +57,7 @@ const AddModal = () => {
               className="mb-2"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              isInvalid={formik.touched.name && formik.errors.name} // touched работает неправильно
+              isInvalid={formik.touched.name && formik.errors.name}
             />
             <Form.Label className="visually-hidden">{t('modal.channelName')}</Form.Label>
             <Form.Control.Feedback type="invalid">
