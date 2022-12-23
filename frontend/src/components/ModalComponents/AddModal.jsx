@@ -37,10 +37,10 @@ const AddModal = () => {
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
-  });
+  }, []);
 
   return (
-    <Modal centered show onHide={() => dispatch(modalActions.setModalType(null))} animation={false}>
+    <Modal centered show onHide={() => dispatch(modalActions.setModalType(null))}>
       <Modal.Header closeButton>
         <Modal.Title>
           {t('modal.add')}
